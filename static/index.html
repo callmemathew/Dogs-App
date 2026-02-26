@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="images/favicon 18.ico" type="image/x-icon">
+
+  <title>DocData</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div id="loader" class="loader" role="status" aria-label="Загрузка">
+  <div class="box">
+    <img class="logo" src="images/D.png" alt="D">
+    <div class="ring"></div>
+  </div>
+  
+</div>
+
+ <header class="banner">
+  <h1 class="saber-title">
+    <span>Таблица собак</span>
+  </h1>
+</header>
+
+  <div id="content">
+    <table border="1" cellpadding="6" cellspacing="0" style="border-collapse:collapse;">
+      <thead>
+        <tr>
+          <th>Номер</th>
+          <th>Порода</th>
+          <th>Имя</th>
+          <th>Фото</th>
+          <th>Локация</th>
+        </tr>
+      </thead>
+      <tbody id="dogTableBody"></tbody>
+    </table>
+  </div>
+<div id="pager" class="pager">
+<button id="prev">< Prev</button>
+<button id="next">Next ></button>
+</div>
+
+ 
+  <script src="script.js" defer></script>
+</body>
+</html>

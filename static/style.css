@@ -1,0 +1,299 @@
+/* =========================
+   0) БАЗОВЫЕ ПЕРЕМЕННЫЕ
+   ========================= */
+:root{
+  --bg:#0a0b0d;
+  --panel:#0f1115;
+  --panel-2:#0c0e12;
+  --border:#20242b;
+  --ink:#e9eef5;
+  --muted:#a6aeb8;
+  --accent:#868686;
+  --accent-2:#ffffff;
+}
+
+
+
+/* =========================
+   1) БАЗА СТРАНИЦЫ
+   ========================= */
+html, body{
+  margin:0;
+  padding:0;
+  background:var(--bg);
+  color:var(--ink);
+}
+
+/* Плавное появление основного контента */
+/* СТАРТОВОЕ СОСТОЯНИЕ — СРАЗУ БЛЮР + СКРЫТ */
+#content{
+  opacity: 0;
+  transform: translateY(12px);
+  filter: blur(6px);
+  transition:
+    opacity 1600ms ease,
+    transform 1600ms ease,
+    filter 1600ms ease;
+}
+
+/* СОСТОЯНИЕ ПОЯВЛЕНИЯ */
+#content.show{
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+.pager { display: none; }
+#content.show + .pager { display: block; }   /* покажем только когда контент прогружен */
+
+/* =========================
+   2) ХЭДЕР/БАННЕР
+   ========================= */
+.banner{
+  position:relative;
+  padding:22px 16px 26px;
+  background:
+    radial-gradient(80% 140% at 50% -60%, rgba(255,90,107,.14), transparent 65%),
+    linear-gradient(180deg, #070809, #0a0b0d 30%, #070809);
+  border-bottom:1px solid #12151a;
+  box-shadow:
+    inset 0 -1px 0 rgba(255,255,255,.02),
+    0 12px 28px rgba(0,0,0,.35),
+    0 0 44px color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+/* Заголовок с «сабер»-подсветкой */
+.saber-title{
+  position:relative;
+  display:inline-block;
+  left:50%;
+  transform:translateX(-50%);
+  margin:0;
+  padding:0 18px;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  font-weight:800;
+  font-size:26px;
+  color:#f6f7fb;
+  text-shadow:
+    0 0 2px rgba(255,255,255,.35),
+    0 0 8px color-mix(in srgb, var(--accent) 45%, transparent),
+    0 0 18px color-mix(in srgb, var(--accent-2) 35%, transparent);
+}
+.saber-title::before,
+.saber-title span::before{
+  content:"";
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%) scaleX(0);
+  width:34vw;
+  max-width:520px;
+  height:2px;
+  opacity:.95;
+  transform-origin:center;
+  background:linear-gradient(to right,transparent,var(--accent),transparent);
+  box-shadow:0 0 10px var(--accent), 0 0 22px color-mix(in srgb, var(--accent-2) 70%, transparent);
+  pointer-events:none;
+}
+.saber-title::before{
+  right:calc(100% + 14px);
+  background:linear-gradient(to left,transparent,var(--accent),transparent);
+}
+.saber-title span{ position:relative; }
+.saber-title span::before{ left:calc(100% + 14px); }
+
+.saber-title.ignite{
+  animation:titleGlow 1600ms ease 100ms both, breathe 2800ms ease-in-out 1800ms infinite;
+}
+.saber-title.ignite::before,
+.saber-title.ignite span::before{
+  animation:ignite 1600ms cubic-bezier(.18,.6,.18,1) 100ms both;
+}
+
+
+/* =========================
+   LOADING STATE (важное)
+   ========================= */
+
+/* Пока идёт загрузка — баннер не показываем вообще */
+body.is-loading .banner{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transform: translateY(-10px);
+}
+
+/* Когда всё загрузилось — баннер появляется плавно */
+body.loaded .banner{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+  transform: translateY(0);
+  transition: opacity .55s ease, transform .55s ease, visibility .55s ease;
+}
+
+/* Чтобы шапка не “моргала” при первом кадре */
+.banner{
+  will-change: opacity, transform;
+}
+
+
+
+
+/* =========================
+   3) ТАБЛИЦА
+   ========================= */
+table{
+  width:min(1120px, 96%);
+  margin:18px auto 48px;
+  border-collapse:separate;
+  border-spacing:0;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:
+    0 14px 40px rgba(0,0,0,.35),
+    0 0 40px color-mix(in srgb, var(--accent) 10%, transparent);
+}
+thead th{
+  background:#07090c;
+  color:#f4f6fb;
+  padding:16px 12px;
+  font-size:18px;
+  letter-spacing:.06em;
+  border-bottom:1px solid var(--border);
+  box-shadow:inset 0 -2px 0 rgba(255,255,255,.03);
+}
+tbody td{
+  padding:22px 16px;
+  font-size:18px;
+  text-align:center;
+  border-top:1px solid var(--border);
+  color:var(--ink);
+}
+tbody tr:nth-child(even){
+  background:var(--panel-2);
+}
+tbody tr{
+  transition:background .25s ease, box-shadow .25s ease, transform .12s ease;
+}
+tbody tr:hover{
+  background: radial-gradient(900px 120px at 50% 50%,
+              color-mix(in srgb, var(--accent) 9%, transparent) 0%,
+              transparent 70%);
+  box-shadow:0 0 0 1px color-mix(in srgb, var(--accent) 22%, transparent) inset;
+}
+/* подсветка колонки «Локация» (5-я) */
+tbody td:nth-child(5){
+  background:linear-gradient(180deg, color-mix(in srgb, var(--accent) 6%, transparent), transparent 65%);
+}
+
+/* Изображения в таблице */
+td img{
+  width:140px;
+  height:auto;
+  display:block;
+  margin:auto;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,.06);
+  box-shadow:
+    0 10px 26px rgba(0,0,0,.35),
+    0 0 20px color-mix(in srgb, var(--accent) 10%, transparent);
+  transition:transform .2s ease, box-shadow .2s ease, filter .2s ease;
+}
+td img:hover{
+  transform:translateY(-2px);
+  box-shadow:
+    0 14px 30px rgba(0,0,0,.45),
+    0 0 26px color-mix(in srgb, var(--accent) 22%, transparent);
+  filter:saturate(1.06);
+}
+
+/* Адаптив */
+@media (max-width: 720px){
+  thead th, tbody td{ padding:14px 10px; font-size:16px; }
+  td img{ width:100px; }
+}
+
+/* =========================
+   4) ЛОАДЕР (КОЛЬЦО + ЛОГО)
+   ========================= */
+/* контейнер лоадера, по центру экрана */
+.loader{
+  position:fixed;
+  inset:0;
+  display:grid;
+  place-items:center;
+  z-index:9999;
+  background:transparent;
+}
+/* плавное скрытие (если используешь .hide в JS) */
+.loader.hide{ opacity:0; visibility:hidden; transition:opacity .4s ease; }
+
+/* коробка фиксированного размера */
+.loader .box{
+  position:relative;
+  width:120px;
+  height:120px;
+}
+
+/* оба слоя — по центру */
+.loader .ring,
+.loader .logo{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%, -50%);
+}
+
+/* вращающееся кольцо */
+.loader .ring{
+  width:96px;
+  height:96px;
+  border-radius:50%;
+  border:3px solid rgba(255,255,255,.22);
+  border-top-color:#fff;
+  box-shadow:0 0 14px rgba(255,255,255,.15);
+  animation:spin 1s linear infinite;
+  z-index:0;
+}
+
+/* PNG с буквой D — выше кольца */
+.loader .logo{
+ animation: spin 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  width:180px;     /* подгони размер логотипа */
+  height:auto;
+  display:block;
+  pointer-events:none;
+  user-select:none;
+  z-index:1;
+}
+
+/* =========================
+   5) АНИМАЦИИ
+   ========================= */
+@keyframes spin{
+  to{ transform:translate(-50%, -50%) rotate(360deg); }
+}
+@keyframes ignite{
+  0%  { transform:translateY(-50%) scaleX(0); opacity:0; }
+  12% { opacity:.9; }
+  100%{ transform:translateY(-50%) scaleX(1); opacity:.95; }
+}
+@keyframes titleGlow{
+  0%  { letter-spacing:.24em; text-shadow:0 0 6px color-mix(in srgb,var(--accent) 45%,transparent), 0 0 14px var(--accent); }
+  55% { text-shadow:0 0 10px var(--accent), 0 0 26px var(--accent-2), 0 0 46px var(--accent-2); }
+  100%{ letter-spacing:.14em; text-shadow:0 0 4px color-mix(in srgb,var(--accent) 30%,transparent), 0 0 16px color-mix(in srgb,var(--accent-2) 45%,transparent); }
+}
+@keyframes breathe{
+  0%,100%{ text-shadow:0 0 4px color-mix(in srgb,var(--accent) 30%,transparent), 0 0 16px color-mix(in srgb,var(--accent-2) 45%,transparent); }
+  50%    { text-shadow:0 0 7px var(--accent), 0 0 22px var(--accent-2); }
+}
+
+/* Уважение prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce){
+  .loader .ring{ animation:none; }
+  .saber-title.ignite{ animation:none; }
+  .saber-title.ignite::before,
+  .saber-title.ignite span::before{ animation:none; }
+}
