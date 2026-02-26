@@ -56,27 +56,13 @@ cd dogs-app
 3. Run the application
 
 
-go run main.go
+go run cmd/dogs/main.go
 
 
 4. Open in browser
 
 
 http://localhost:8080
-
-
-## Project Structure
-
-
-dogs-app
-│
-├── main.go
-├── dogs.db
-└── static
-├── index.html
-├── style.css
-└── script.js
-
 
 ## Author
 
