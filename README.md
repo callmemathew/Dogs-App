@@ -44,7 +44,7 @@ http://localhost:8080/api/dogs?page=1&limit=5
 1. Clone the repository
 
 
-git clone https://github.com/yourusername/dogs-app.git
+git clone https://github.com/callmemathew/Dogs-App.git
 
 
 2. Go to the project folder
