@@ -1,35 +1,82 @@
 # Dogs App 🐶
 
-Dogs App is a simple web application that displays information about dog breeds.  
-The project was created as a learning exercise to practice working with HTML, CSS, JavaScript, and external APIs.
+Dogs App is a simple web application written in **Go (Golang)** that displays information about dogs from a SQLite database.
+
+This was one of my **first backend projects in Go**, created to practice building a simple web server, working with databases, and creating an API.
+
+The application includes:
+- a Go backend
+- a SQLite database
+- a small frontend in HTML, CSS, and JavaScript
 
 ## Features
 
-- View different dog breeds
-- Fetch data from a public dog API
-- Simple and clean user interface
-- Beginner-friendly code structure
+- simple REST API
+- pagination (page & limit)
+- SQLite database
+- static frontend served by Go
 
 ## Technologies
 
+- Go (Golang)
+- SQLite
 - HTML
 - CSS
 - JavaScript
-- Dog API
+- net/http
 
-## Purpose of the Project
+## API
 
-This project was created as my first practice project to learn how to:
-- build a basic web interface
-- work with APIs
-- structure a small frontend project
+Endpoint:
 
-## Future Improvements
 
-- Add search functionality
-- Improve UI design
-- Add breed details page
-- Implement filtering
+GET /api/dogs
+
+
+Example:
+
+
+http://localhost:8080/api/dogs?page=1&limit=5
+
+
+## How to run
+
+1. Clone the repository
+
+
+git clone https://github.com/yourusername/dogs-app.git
+
+
+2. Go to the project folder
+
+
+cd dogs-app
+
+
+3. Run the application
+
+
+go run main.go
+
+
+4. Open in browser
+
+
+http://localhost:8080
+
+
+## Project Structure
+
+
+dogs-app
+│
+├── main.go
+├── dogs.db
+└── static
+├── index.html
+├── style.css
+└── script.js
+
 
 ## Author
 
